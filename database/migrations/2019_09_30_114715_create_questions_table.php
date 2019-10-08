@@ -22,9 +22,12 @@ class CreateQuestionsTable extends Migration
             $table->unsignedInteger('answers')->default(0);
             $table->integer('votes')->default(0);
             $table->unsignedInteger('best_answer_id')->nullable();
+            $table->unsignedInteger('user_id');
             $table->timestamps();
-             $table->bigInteger('user_id')->unsigned()->index(); 
-        $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+        });
+
+        Schema::table('questions', function (Blueprint $table) {
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
 
